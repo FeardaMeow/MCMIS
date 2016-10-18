@@ -1,11 +1,13 @@
 #install.packages("data.table")
 library(data.table)
 
-MCMIS <- 'D:\\Program File\\RStudio\\scripts\\RA\\MCMIS'
+#Loading in the data
+MCMIS <- 'D:\\Program File\\Git\\git_projects\\RA\\MCMIS'
 
 setwd(MCMIS) #location of data
 
-crash.master <- fread('OurCrash.csv', header = T, sep ="auto", sep2 = "auto")
+crash.master <- fread('data\\OurCrash.csv', header = T, sep ="auto", sep2 = "auto")
+truck.employed <- fread('data\\TruckEmployment.csv', header = T, sep ="auto", sep2 = "auto")
 
 summary(crash.master)
 
@@ -23,16 +25,23 @@ for (state in states) {
 }
 
 df <- data.frame(states, injuries, fatalities, severity, n)
+df <- merge(df, truck.employed, by="states")
+df$sinjuries <- df$injuries/df$employed
+df$sfatalities <- df$fatalities/df$employed
+df$sn <- df$n/df$employed
 
 hist(df$injuries,nclass=20)
 hist(df$fatalities,nclass=20)
 hist(df$severity)
-hist(df$n,nclass=20)
+hist(df$n)
+
+hist(df$sinjuries)
+hist(df$sfatalities)
+hist(df$sn)
 
 boxplot(df$injuries, main="injuries")
 boxplot(df$fatalities, main="fatalities")
 boxplot(df$severity, main="severity")
 boxplot(df$n, main="sample size")
 
-df.summary <- summary(df, maxsum=100)
-write.table(df.summary,file="summary.csv",append=FALSE)
+

@@ -1,7 +1,7 @@
 #install.packages("data.table")
 library(data.table)
 
-MCMIS <- 'D:\\Program File\\RStudio\\scripts\\RA\\MCMIS'
+MCMIS <- '/home/liujundi/Desktop/truck_crash/MCMIS/data'
 
 setwd(MCMIS) #location of data
 
@@ -36,3 +36,13 @@ boxplot(df$n, main="sample size")
 
 df.summary <- summary(df, maxsum=100)
 write.table(df.summary,file="summary.csv",append=FALSE)
+
+mean(injuries)
+mean(fatalities)
+mean(severity)
+median(injuries)
+median(fatalities)
+median(severity)
+range(injuries)
+range(fatalities)
+range(severity)

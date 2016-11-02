@@ -77,6 +77,9 @@ tabuler <- data.frame(states,mean_inj, median_inj, sigma_inj, min_inj, max_inj,
                       sigma_sever,
                       min_sever,
                       max_sever)
+write.table(tabuler, file = "table.csv")
+write.csv(tabuler, file = "table2.csv")
+
 df <- data.frame(states, injuries, fatalities, severity, n)
 df <- merge(df, truck.employed, by="states")
 df$sinjuries <- df$injuries/df$employed
